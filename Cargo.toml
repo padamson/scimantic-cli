@@ -1,14 +1,14 @@
 [package]
-name = "my-project"
+name = "scimantic"
 version = "0.1.0"
 edition = "2024"
 rust-version = "1.88"
 license = "MIT"
-description = "A short description of your project"
-repository = "https://github.com/OWNER/REPO"
-authors = ["Your Name"]
-categories = []
-keywords = []
+description = "Command-line companion for the Scimantic scientific knowledge management platform"
+repository = "https://github.com/padamson/scimantic-cli"
+authors = ["Paul Adamson"]
+categories = ["command-line-utilities", "science"]
+keywords = ["scimantic", "cli", "knowledge-graph", "sparql", "science"]
 
 [dependencies]
 

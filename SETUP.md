@@ -95,3 +95,33 @@ Then exempt any unaudited dependencies:
 cargo vet
 # Follow the prompts to exempt crates
 ```
+
+## Release ceremony (final step — cut v0.1.0)
+
+Only run this after every box above is checked and at least one feature is implemented.
+
+1. Promote the `[Unreleased]` section in `CHANGELOG.md` to `## [0.1.0] - YYYY-MM-DD`
+   (use today's date). Leave a fresh `## [Unreleased]` above it for future work.
+2. Update the compare links at the bottom of `CHANGELOG.md`:
+   - Change `[Unreleased]` to `https://github.com/padamson/scimantic-cli/compare/v0.1.0...HEAD`.
+   - Add `[0.1.0]: https://github.com/padamson/scimantic-cli/releases/tag/v0.1.0`.
+3. Remove this file — you won't need it again:
+   ```bash
+   git rm SETUP.md
+   ```
+4. Commit, tag, and push:
+   ```bash
+   git add CHANGELOG.md
+   git commit -m "Release v0.1.0"
+   git tag v0.1.0
+   git push origin main --tags
+   ```
+5. Watch the Release workflow at
+   https://github.com/padamson/scimantic-cli/actions. On success:
+   - A GitHub Release appears with binaries for the four targets in the matrix.
+   - `scimantic` publishes to crates.io (requires `CARGO_REGISTRY_TOKEN`).
+6. Verify end-to-end:
+   ```bash
+   cargo install scimantic
+   scimantic --version   # → scimantic 0.1.0
+   ```

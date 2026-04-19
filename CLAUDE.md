@@ -1,6 +1,6 @@
-# Project Name
+# scimantic
 
-<!-- Replace with a one-line description of what this project does -->
+Command-line companion for the Scimantic scientific knowledge management platform.
 
 ## Development
 
