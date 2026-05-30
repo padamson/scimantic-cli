@@ -12,3 +12,7 @@ Thumbs.db
 *.swp
 *.swo
 *~
+
+# Mutation testing
+mutants.out/
+mutants.out.old/

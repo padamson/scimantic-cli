@@ -37,4 +37,48 @@ fn unknown_argument_exits_nonzero() {
         .expect("failed to execute scimantic");
 
     assert!(!output.status.success());
+
+    let stderr = String::from_utf8(output.stderr).expect("stderr is utf-8");
+    assert!(
+        stderr.contains("unrecognized arguments"),
+        "stderr: {stderr}"
+    );
+}
+
+#[test]
+fn no_arguments_prints_help_to_stdout() {
+    let output = Command::new(BIN)
+        .output()
+        .expect("failed to execute scimantic");
+
+    assert!(output.status.success(), "exit status: {}", output.status);
+
+    let stdout = String::from_utf8(output.stdout).expect("stdout is utf-8");
+    assert!(stdout.contains("Usage: scimantic"), "stdout: {stdout}");
+}
+
+#[test]
+fn help_flag_prints_help_to_stdout() {
+    let output = Command::new(BIN)
+        .arg("--help")
+        .output()
+        .expect("failed to execute scimantic");
+
+    assert!(output.status.success(), "exit status: {}", output.status);
+
+    let stdout = String::from_utf8(output.stdout).expect("stdout is utf-8");
+    assert!(stdout.contains("Usage: scimantic"), "stdout: {stdout}");
+}
+
+#[test]
+fn short_help_flag_matches_long() {
+    let output = Command::new(BIN)
+        .arg("-h")
+        .output()
+        .expect("failed to execute scimantic");
+
+    assert!(output.status.success(), "exit status: {}", output.status);
+
+    let stdout = String::from_utf8(output.stdout).expect("stdout is utf-8");
+    assert!(stdout.contains("Usage: scimantic"), "stdout: {stdout}");
 }
