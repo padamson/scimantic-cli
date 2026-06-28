@@ -1,0 +1,15 @@
+# cargo-mutants configuration.
+#
+# NOTE: cargo-mutants reads `.cargo/mutants.toml`, NOT a `.mutants.toml` at the
+# repo root (a root-level file is silently ignored). Keep this file here.
+#
+# Scope mutation testing to the crate's correctness-critical logic. `cargo
+# mutants` runs the workspace test suite (`nextest`), so it can only catch
+# mutants that a native unit/integration test exercises. scimantic is a single
+# small CLI crate today, so the whole of `src/` is in scope; revisit
+# `examine_globs` if view/e2e layers are added whose behavior is verified
+# outside `cargo test` (mutating those yields surviving-mutant noise).
+test_tool = "nextest"
+examine_globs = [
+    "src/**/*.rs",
+]

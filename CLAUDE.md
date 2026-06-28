@@ -15,6 +15,18 @@ cargo deny check         # license/dependency check
 cargo vet                # supply chain review
 ```
 
+Mutation testing (cargo-mutants, scoped via `.cargo/mutants.toml`):
+
+```bash
+cargo install cargo-mutants   # once per machine
+./scripts/mutants.sh          # mutate changes in HEAD~1..HEAD (fast, --in-diff)
+./scripts/mutants.sh main     # mutate everything changed since main
+cargo mutants                 # full sweep of all in-scope code (slow)
+```
+
+CI runs the fast `--in-diff` variant on every push/PR and a full sweep
+weekly; both fail on a surviving mutant.
+
 ## Pre-commit hooks
 
 ```bash
